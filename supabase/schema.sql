@@ -1,10 +1,11 @@
 -- =====================================================================
 --  六都市長模擬投票：資料庫結構
 --  使用方式：Supabase → SQL Editor → New query → 整份貼上 → Run（只要跑一次）
+--  所有物件都以 sc_ 開頭，可以和其他網站（例如 taiwan-vote）共用同一個 Supabase 專案，不會互相影響
 -- =====================================================================
 
 -- 1) 候選人（你之後在 Table Editor 直接編輯這張表）
-create table if not exists public.candidates (
+create table if not exists public.sc_candidates (
   id            uuid primary key default gen_random_uuid(),
   city          text not null check (city in ('taipei','newtaipei','taoyuan','taichung','tainan','kaohsiung')),
   ballot_no     int,                              -- 號次，10/23 抽籤後填入
@@ -19,26 +20,26 @@ create table if not exists public.candidates (
 );
 
 -- 2) 票數：只記「投給誰」，不記任何裝置資訊；時間只記到「日」，無法和裝置紀錄對時比對
-create table if not exists public.votes (
+create table if not exists public.sc_votes (
   id           bigint generated always as identity primary key,
-  candidate_id uuid not null references public.candidates(id),
+  candidate_id uuid not null references public.sc_candidates(id),
   city         text not null,
   voted_on     date not null default (now() at time zone 'Asia/Taipei')::date
 );
-create index if not exists votes_candidate_idx on public.votes(candidate_id);
+create index if not exists sc_votes_candidate_idx on public.sc_votes(candidate_id);
 
 -- 3) 已投票裝置：只存伺服器加密雜湊後的值，與 votes 表沒有任何關聯
-create table if not exists public.voted_devices (
+create table if not exists public.sc_voted_devices (
   device_hash text primary key
 );
 
 -- 4) 關閉所有公開存取：只有網站後端（service_role 金鑰）能讀寫
-alter table public.candidates    enable row level security;
-alter table public.votes         enable row level security;
-alter table public.voted_devices enable row level security;
+alter table public.sc_candidates    enable row level security;
+alter table public.sc_votes         enable row level security;
+alter table public.sc_voted_devices enable row level security;
 
 -- 5) 投票（同一個交易內完成：檢查 → 記錄裝置 → 加一票）
-create or replace function public.cast_vote(p_hashes text[], p_candidate_id uuid)
+create or replace function public.sc_cast_vote(p_hashes text[], p_candidate_id uuid)
 returns text
 language plpgsql
 security definer
@@ -47,57 +48,57 @@ as $$
 declare
   v_city text;
 begin
-  select city into v_city from candidates where id = p_candidate_id and is_active;
+  select city into v_city from sc_candidates where id = p_candidate_id and is_active;
   if v_city is null then
     raise exception 'INVALID_CANDIDATE';
   end if;
 
-  if exists (select 1 from voted_devices where device_hash = any(p_hashes)) then
+  if exists (select 1 from sc_voted_devices where device_hash = any(p_hashes)) then
     return 'ALREADY_VOTED';
   end if;
 
   begin
-    insert into voted_devices(device_hash) select distinct unnest(p_hashes);
+    insert into sc_voted_devices(device_hash) select distinct unnest(p_hashes);
   exception when unique_violation then
     return 'ALREADY_VOTED';   -- 兩個請求同時送來時的保險
   end;
 
-  insert into votes(candidate_id, city) values (p_candidate_id, v_city);
+  insert into sc_votes(candidate_id, city) values (p_candidate_id, v_city);
   return v_city;
 end;
 $$;
 
-create or replace function public.has_voted(p_hashes text[])
+create or replace function public.sc_has_voted(p_hashes text[])
 returns boolean
 language sql
 security definer
 set search_path = public
 as $$
-  select exists (select 1 from voted_devices where device_hash = any(p_hashes));
+  select exists (select 1 from sc_voted_devices where device_hash = any(p_hashes));
 $$;
 
-create or replace function public.get_results()
+create or replace function public.sc_get_results()
 returns table(candidate_id uuid, city text, votes bigint)
 language sql
 security definer
 set search_path = public
 as $$
   select c.id, c.city, count(v.id)
-  from candidates c
-  left join votes v on v.candidate_id = c.id
+  from sc_candidates c
+  left join sc_votes v on v.candidate_id = c.id
   where c.is_active
   group by c.id, c.city;
 $$;
 
-revoke all on function public.cast_vote(text[], uuid) from public, anon, authenticated;
-revoke all on function public.has_voted(text[])       from public, anon, authenticated;
-revoke all on function public.get_results()           from public, anon, authenticated;
-grant execute on function public.cast_vote(text[], uuid) to service_role;
-grant execute on function public.has_voted(text[])       to service_role;
-grant execute on function public.get_results()           to service_role;
+revoke all on function public.sc_cast_vote(text[], uuid) from public, anon, authenticated;
+revoke all on function public.sc_has_voted(text[])       from public, anon, authenticated;
+revoke all on function public.sc_get_results()           from public, anon, authenticated;
+grant execute on function public.sc_cast_vote(text[], uuid) to service_role;
+grant execute on function public.sc_has_voted(text[])       to service_role;
+grant execute on function public.sc_get_results()           to service_role;
 
 -- 6) 初始候選人名單（2026/9/4 登記截止後媒體整理；號次待 10/23 抽籤）
-insert into public.candidates (id, city, name, party, party_note, sort_order) values
+insert into public.sc_candidates (id, city, name, party, party_note, sort_order) values
   ('00000000-0000-4000-8000-000000000001', 'taipei', '蔣萬安', '中國國民黨', '現任市長', 1),
   ('00000000-0000-4000-8000-000000000002', 'taipei', '沈伯洋', '民主進步黨', null, 2),
   ('00000000-0000-4000-8000-000000000003', 'taipei', '郭璽', '台灣麻將最大黨', null, 3),

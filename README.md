@@ -12,16 +12,15 @@ Next.js 16 + Tailwind CSS 4 + Supabase + Cloudflare Turnstile，部署在 Vercel
 
 你已經有 GitHub、Supabase、Cloudflare、Vercel 帳號（taiwan-vote 用過的那些），直接沿用即可。這個網站要**全部另開新的**，不要動到 taiwan-vote。
 
-### 第 1 步：建立新的 Supabase 專案
-1. 登入 https://supabase.com → **New project**
-2. 名稱填 `six-city-vote`，Region 選 **Northeast Asia (Tokyo)**，設一個資料庫密碼（記下來）→ Create
-3. 等 1～2 分鐘建立完成
+### 第 1 步：使用現有的 Supabase 專案
+Supabase 免費方案最多 2 個專案。本站所有資料表都以 `sc_` 開頭，所以**直接放進你現有的專案（例如 taiwan-vote 用的那個）**，不會和原本的資料表衝突。
+1. 登入 https://supabase.com/dashboard → 點進你要共用的專案
 
 ### 第 2 步：建立資料表
 1. 左側選單 **SQL Editor** → **New query**
-2. 用記事本打開這個專案裡的 `supabase/schema.sql`，**全選複製**，貼進去
-3. 按右下角 **Run**，看到 `Success. No rows returned` 就完成
-4. 左側 **Table Editor** → 點 `candidates`，應該看到 23 位候選人
+2. 打開 GitHub 上的 `supabase/schema.sql`，全部複製後貼進去
+3. 按 **Run**，看到 `Success. No rows returned` 就完成
+4. 左側 **Table Editor** → 應該多出 `sc_candidates`、`sc_votes`、`sc_voted_devices`；`sc_candidates` 裡有 23 位候選人
 
 ### 第 3 步：記下 Supabase 金鑰
 左側 **Project Settings → API**（或 Data API / API Keys），記下：
@@ -65,14 +64,14 @@ Next.js 16 + Tailwind CSS 4 + Supabase + Cloudflare Turnstile，部署在 Vercel
 2. 應該立刻看到圖表；重新整理頁面應顯示「已完成投票」
 3. 測完到 Supabase **SQL Editor** 執行下面這段，把測試票清掉：
    ```sql
-   truncate public.votes, public.voted_devices;
+   truncate public.sc_votes, public.sc_voted_devices;
    ```
 
 ---
 
 ## 日常維護：更新候選人
 
-全部在 Supabase **Table Editor → candidates** 裡直接點格子修改，存檔後網站立刻更新，不用重新部署。
+全部在 Supabase **Table Editor → sc_candidates** 裡直接點格子修改，存檔後網站立刻更新，不用重新部署。
 
 | 情況 | 改哪一欄 |
 |---|---|
@@ -113,7 +112,7 @@ Next.js 16 + Tailwind CSS 4 + Supabase + Cloudflare Turnstile，部署在 Vercel
 Supabase SQL Editor 執行：
 ```sql
 select c.city, c.name, count(v.id) as votes
-from candidates c left join votes v on v.candidate_id = c.id
+from sc_candidates c left join sc_votes v on v.candidate_id = c.id
 group by c.city, c.name order by c.city, votes desc;
 ```
 ⚠️ 11/18～11/28 16:00 這段期間，自己看可以，但**不能**截圖或公布到任何地方。

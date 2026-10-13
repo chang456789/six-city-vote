@@ -27,7 +27,7 @@ export async function loadCandidates(): Promise<Candidate[]> {
   const sb = db();
   if (!sb) return withPlatforms(SEED_CANDIDATES);
   const { data, error } = await sb
-    .from("candidates")
+    .from("sc_candidates")
     .select("id, city, ballot_no, name, party, party_note, platform_tags, photo_url, sort_order")
     .eq("is_active", true)
     .order("city")
@@ -59,7 +59,7 @@ export async function hasVoted(hashes: string[]): Promise<boolean> {
   if (hashes.length === 0) return false;
   const sb = db();
   if (!sb) return hashes.some((h) => mem.devices.has(h));
-  const { data, error } = await sb.rpc("has_voted", { p_hashes: hashes });
+  const { data, error } = await sb.rpc("sc_has_voted", { p_hashes: hashes });
   if (error) throw new Error(error.message);
   return data === true;
 }

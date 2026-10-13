@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     return json({ ok: true, city: c.city });
   }
 
-  const { data, error } = await sb.rpc("cast_vote", { p_hashes: hashes, p_candidate_id: candidateId });
+  const { data, error } = await sb.rpc("sc_cast_vote", { p_hashes: hashes, p_candidate_id: candidateId });
   if (error) {
     if (error.message.includes("INVALID_CANDIDATE")) return json({ error: "候選人不存在" }, 400);
     return json({ error: "系統忙碌，請稍後再試" }, 500);

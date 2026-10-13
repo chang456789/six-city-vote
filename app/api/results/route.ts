@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       totals[c.city] = (totals[c.city] ?? 0) + n;
     }
   } else {
-    const { data, error } = await sb.rpc("get_results");
+    const { data, error } = await sb.rpc("sc_get_results");
     if (error) return json({ error: "無法讀取結果" }, 500);
     for (const row of (data ?? []) as { candidate_id: string; city: string; votes: number }[]) {
       counts[row.candidate_id] = Number(row.votes);

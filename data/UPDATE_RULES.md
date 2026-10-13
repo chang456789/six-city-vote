@@ -18,7 +18,7 @@
 - **公平原則**：每次執行都要逐一檢查所有候選人（含小黨、無黨籍），不能只更新熱門候選人。
 
 ## 檔案格式
-鍵值是「城市代碼/姓名」，姓名要和 Supabase `candidates` 表完全一致。城市代碼：taipei、newtaipei、taoyuan、taichung、tainan、kaohsiung。
+鍵值是「城市代碼/姓名」，姓名要和 Supabase `sc_candidates` 表完全一致。城市代碼：taipei、newtaipei、taoyuan、taichung、tainan、kaohsiung。
 ```json
 "tainan/陳亭妃": {
   "tags": ["五大觀光軸", "成立青年局"],
