@@ -1,0 +1,214 @@
+{
+  "updatedAt": "2026-10-13",
+  "note": "由排程任務自動維護。每個標籤都必須對應 sources 裡的公開來源；只收錄候選人本人或競選團隊公開提出的未來施政主張。",
+  "candidates": {
+    "taipei/蔣萬安": {
+      "tags": [],
+      "status": "尚未正式發表競選政見",
+      "sources": [
+        {
+          "publisher": "聯合新聞網",
+          "date": "2026-09-15",
+          "title": "蔣萬安競選策略報導（以市政成績爭取連任）",
+          "url": "https://udn.com/news/story/6656/9754454"
+        }
+      ]
+    },
+    "taipei/沈伯洋": {
+      "tags": [
+        "改善公務員職場",
+        "北士科設AI研究院",
+        "擴大親子同行卡",
+        "整合登山步道"
+      ],
+      "status": null,
+      "sources": [
+        {
+          "publisher": "聯合新聞網",
+          "date": "2026-06-06",
+          "title": "沈伯洋專訪：台北市政願景",
+          "url": "https://udn.com/news/story/124652/9549363"
+        }
+      ]
+    },
+    "newtaipei/李四川": {
+      "tags": [
+        "樹林鐵路地下化",
+        "大漢溪捷運幹線",
+        "淡北快線",
+        "擴充公共托育"
+      ],
+      "status": null,
+      "sources": [
+        {
+          "publisher": "聯合新聞網",
+          "date": "2026-07-27",
+          "title": "李四川提新北南北雙引擎藍圖",
+          "url": "https://udn.com/news/story/124652/9653165"
+        },
+        {
+          "publisher": "聯合新聞網",
+          "date": "2026-03-21",
+          "title": "李四川、蘇巧慧托育與午餐政見",
+          "url": "https://udn.com/news/story/124652/9394191"
+        }
+      ]
+    },
+    "newtaipei/蘇巧慧": {
+      "tags": [
+        "免費營養午餐",
+        "兒童疫苗免費接種",
+        "減輕醫療負擔"
+      ],
+      "status": null,
+      "sources": [
+        {
+          "publisher": "聯合新聞網",
+          "date": "2026-03-21",
+          "title": "李四川、蘇巧慧托育與午餐政見",
+          "url": "https://udn.com/news/story/124652/9394191"
+        }
+      ]
+    },
+    "taoyuan/張善政": {
+      "tags": [],
+      "status": "尚未正式發表競選政見",
+      "sources": [
+        {
+          "publisher": "聯合新聞網",
+          "date": "2026-08-01",
+          "title": "張善政談第一任回顧與連任",
+          "url": "https://udn.com/news/story/124652/9663778"
+        }
+      ]
+    },
+    "taoyuan/黃世杰": {
+      "tags": [
+        "公車路網改革",
+        "兒少長者健保補助",
+        "敬老卡點數升級",
+        "擴增公共托育"
+      ],
+      "status": null,
+      "sources": [
+        {
+          "publisher": "聯合新聞網",
+          "date": "2026-07-27",
+          "title": "黃世杰首波六項政見",
+          "url": "https://udn.com/news/story/124652/9653215"
+        }
+      ]
+    },
+    "taichung/江啟臣": {
+      "tags": [
+        "新住民國際合作會",
+        "新二代國際領航",
+        "新住民創業補息",
+        "多語諮詢服務"
+      ],
+      "status": null,
+      "sources": [
+        {
+          "publisher": "中央社",
+          "date": "2026-09-08",
+          "title": "江啟臣提出新住民政見",
+          "url": "https://cna.com.tw/news/aloc/202609080212.aspx"
+        }
+      ]
+    },
+    "taichung/何欣純": {
+      "tags": [
+        "成立青年局",
+        "青年創業貸款補息",
+        "青年國際參與補助"
+      ],
+      "status": null,
+      "sources": [
+        {
+          "publisher": "聯合新聞網",
+          "date": "2026-06-23",
+          "title": "何欣純三大青年新政",
+          "url": "https://udn.com/news/story/124652/9582893"
+        }
+      ]
+    },
+    "tainan/謝龍介": {
+      "tags": [
+        "公車優化與司機加薪",
+        "廣設綠色人行道",
+        "成立青年局",
+        "當選不尋求連任"
+      ],
+      "status": null,
+      "sources": [
+        {
+          "publisher": "ETtoday",
+          "date": "2026-05-20",
+          "title": "謝龍介台南政見報導",
+          "url": "https://www.ettoday.net/news/20260520/3169205.htm"
+        },
+        {
+          "publisher": "中央社",
+          "date": "2026-09-01",
+          "title": "謝龍介登記參選台南市長",
+          "url": "https://cna.com.tw/news/aipl/202609010168.aspx"
+        }
+      ]
+    },
+    "tainan/陳亭妃": {
+      "tags": [
+        "五大觀光軸",
+        "成立青年局"
+      ],
+      "status": null,
+      "sources": [
+        {
+          "publisher": "中央社",
+          "date": "2026-09-01",
+          "title": "陳亭妃提出五大觀光軸",
+          "url": "https://cna.com.tw/news/aipl/202609010168.aspx"
+        },
+        {
+          "publisher": "ETtoday",
+          "date": "2026-05-20",
+          "title": "青年局政見報導",
+          "url": "https://www.ettoday.net/news/20260520/3169205.htm"
+        }
+      ]
+    },
+    "kaohsiung/柯志恩": {
+      "tags": [
+        "可負擔青年住宅",
+        "社宅租期延至12年",
+        "青年尋職輔導金",
+        "新創集資輔導"
+      ],
+      "status": null,
+      "sources": [
+        {
+          "publisher": "聯合新聞網（中央社）",
+          "date": "2026-07-09",
+          "title": "賴瑞隆、柯志恩青年就業安居政見",
+          "url": "https://udn.com/news/story/124652/9618217"
+        }
+      ]
+    },
+    "kaohsiung/賴瑞隆": {
+      "tags": [
+        "青年實習計畫2.0",
+        "青年海外交流補助",
+        "創業全週期支持",
+        "社宅與租金補貼"
+      ],
+      "status": null,
+      "sources": [
+        {
+          "publisher": "聯合新聞網（中央社）",
+          "date": "2026-07-09",
+          "title": "賴瑞隆、柯志恩青年就業安居政見",
+          "url": "https://udn.com/news/story/124652/9618217"
+        }
+      ]
+    }
+  }
+}

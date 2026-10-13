@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f9f9fb;
+  --color-paper-2: #efefe9;
+  --color-ink: #1e2022;
+  --color-ink-2: #2a2d30;
+  --color-muted: #6b6f74;
+  --color-rule: #d9d9d4;
+  --color-signal: #c8102e; /* 報頭紅：只用在極少數強調 */
+
+  --font-serif: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --font-sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-paper);
+  font-feature-settings: "palt";
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* 報紙式雙線 */
+.rule-double {
+  border-top: 3px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  height: 6px;
+}
+
+/* 等寬數字 */
+.tnum {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.bar-grow {
+  transform-origin: left center;
+  animation: grow 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-grow { animation: none; }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
